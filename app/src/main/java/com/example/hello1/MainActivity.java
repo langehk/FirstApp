@@ -1,79 +1,145 @@
 package com.example.hello1;
 
+import android.support.annotation.IntegerRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+
+import java.sql.SQLIntegrityConstraintViolationException;
 
 public class MainActivity extends AppCompatActivity {
+
+
+    TextView m_txtHello;
+    EditText m_eTxtName;
+    EditText m_eTxtNoOne;
+    EditText m_eTxtNoTwo;
+    TextView m_eTxtResult;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button btnOK = findViewById(R.id.btnOK);
-        btnOK.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View view) {
-            onClickOK();
-            }
-        } );
+//Definerer hvilke knapper der er tale om.
+        m_eTxtNoOne = this.findViewById(R.id.eTxtNoOne);
+        m_eTxtNoTwo = this.findViewById(R.id.eTxtNoTwo);
+        m_eTxtResult = this.findViewById(R.id.txtResult);
 
-        Button btnPlus = findViewById(R.id.btnPlus);
-        btnPlus.setOnClickListener(new View.OnClickListener()
+        m_txtHello = this.findViewById(R.id.txtHello);
+        m_eTxtName = this.findViewById(R.id.eTxtName);
 
+        Button btnOk = this.findViewById(R.id.btnOk);
+
+        //Calls OnClickOK method. (button)
+        btnOk.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View view)       {
-             onClickPlus();
+            public void onClick(View v)
+            {
+                onClickOk();
             }
-
         });
 
-        Button btnMinus = findViewById(R.id.btnMinus);
-        btnMinus.setOnClickListener(new View.OnClickListener() {
+        //Button Add two numbers
+        Button btnAdd = this.findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
-                onClickMinus();
+            public void onClick(View v)
+            {
+                onClickAdd();
             }
         });
 
+        Button btnSub = this.findViewById(R.id.btnSub);
+        btnSub.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                onClickSub();
+            }
+        });
+
+        Button btnMulti = this.findViewById(R.id.btnMulti);
+        btnMulti.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                onClickMulti();
+            }
+        });
+
+        Button btnDiv = this.findViewById(R.id.btnDiv);
+        btnDiv.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                onClickDiv();
+            }
+        });
     }
 
-
-    private void onClickOK()
+    private void onClickOk()
     {
-        EditText etName = findViewById(R.id.etName);
-        String name = etName.getText().toString();
-        TextView tvGreeting = findViewById(R.id.tvGreeting);
-        String greeting = "Hello" + name + ", have a nice day!";
-        tvGreeting.setText(greeting);
+        Log.d("Hello1", "ok is clicked - ");
+
+        String name = m_eTxtName.getText().toString();
+        m_txtHello.setText("Hello " + name + "! Have a nice day :-)!");
+        Toast.makeText(this, "Toast " + name, Toast.LENGTH_SHORT).show();
     }
 
-    private void onClickPlus(){
-        EditText etNumberOne = findViewById(R.id.etNumberOne);
-        String number1 = etNumberOne.getText().toString();
+    private void onClickAdd()
+    {
+        double noOne = Double.parseDouble(m_eTxtNoOne.getText().toString());
+        double noTwo = Double.parseDouble(m_eTxtNoTwo.getText().toString());
 
-        EditText etNumberTwo = findViewById(R.id.etNumberTwo);
-        String number2 = etNumberTwo.getText().toString();
+        String result = String.valueOf(noOne + noTwo);
 
-        TextView tvSum = findViewById(R.id.tvSum);
-        String sum = "Summen er:" + number1 + number2 + "";
-        tvSum.setText(sum);
+        m_eTxtResult.setText(result);
     }
 
-    private void onClickMinus() {
-        EditText etNumberOne = findViewById(R.id.etNumberOne);
-        String number1 = etNumberOne.getText().toString();
+    private void onClickSub()
+    {
+        double noOne = Double.parseDouble(m_eTxtNoOne.getText().toString());
+        double noTwo = Double.parseDouble(m_eTxtNoTwo.getText().toString());
 
-        EditText etNumberTwo = findViewById(R.id.etNumberTwo);
-        String number2 = etNumberTwo.getText().toString();
+        String result = String.valueOf(noOne - noTwo);
 
-        TextView tvSum = findViewById(R.id.tvSum);
-        String sum = "Summen er:" + number1 + number2 + "";
-        tvSum.setText(sum);
-
+        m_eTxtResult.setText(result);
     }
+
+    private void onClickMulti()
+    {
+        double noOne = Double.parseDouble(m_eTxtNoOne.getText().toString());
+        double noTwo = Double.parseDouble(m_eTxtNoTwo.getText().toString());
+
+        String result = String.valueOf(noOne * noTwo);
+
+        m_eTxtResult.setText(result);
+    }
+
+    private void onClickDiv()
+    {
+        double noOne = Double.parseDouble(m_eTxtNoOne.getText().toString());
+        double noTwo = Double.parseDouble(m_eTxtNoTwo.getText().toString());
+
+        String result = String.valueOf(noOne / noTwo);
+
+        m_eTxtResult.setText(result);
+    }
+
+    
+
+}
